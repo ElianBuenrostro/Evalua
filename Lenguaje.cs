@@ -44,6 +44,7 @@ namespace Evalua
             }
             return false;
         }
+        //Nuevo metodo
         private void modificaValor(string nombre, float nuevoValor)
         {
             
@@ -184,6 +185,7 @@ namespace Evalua
         }
 
         //Asignacion -> identificador = cadena | Expresion;
+        //Agregar 2 nuevas variables 
         private void Asignacion()
         {
             //Requerimiento 2.- Si no existe la variable levanta la excepcion
