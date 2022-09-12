@@ -374,6 +374,12 @@ namespace Evalua
             match("(");
             if(getClasificacion() == Tipos.Cadena)
             {
+                //cambiamos las comillas por los datos correctos
+                setContenido(getContenido().Replace("\\t", "     "));
+                setContenido(getContenido().Replace("\\n", "\n"));
+                setContenido(getContenido().Replace("\"", string.Empty));
+                //escribe contenido
+
                 Console.Write(getContenido());
                 match(Tipos.Cadena);
             }
@@ -397,6 +403,8 @@ namespace Evalua
             match(Tipos.Cadena);
             match(",");
             match("&");
+            
+           
             //Requerimiento 2.- Si no existe la variable levanta la excepcion
             string val = "" + Console.ReadLine();
             //Requerimiento 5.- Modificar el valor de la variable
