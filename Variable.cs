@@ -36,5 +36,10 @@ namespace Evalua
         {
             return this.tipo;
         }
+
+        public void setValor(string nombre, float resultado){
+
+        }
+
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 //Requerimiento 2.- Marcar los errores sintacticos cuando la variable no exista
 //Requerimiento 3.- Modificar el valor de la variable en la asignacion
 //Requerimiento 4.- Obtener el valor de la variable cuando se requiera y programar el metodo getValor 
+//Requerimiento 5.- Modificar el valor de la variable en el Scanf
 namespace Evalua
 {
     public class Lenguaje : Sintaxis
@@ -48,7 +49,7 @@ namespace Evalua
             return false;
         }
         //Nuevo metodo
-        private void modificaValor(string nombre, float nuevoValor)
+        private void modVariable(string nombre, float nuevoValor)
         {
             
         }
@@ -394,6 +395,12 @@ namespace Evalua
             match("scanf");
             match("(");
             match(Tipos.Cadena);
+            match(",");
+            match("&");
+            //Requerimiento 2.- Si no existe la variable levanta la excepcion
+            string val = "" + Console.ReadLine();
+            //Requerimiento 5.- Modificar el valor de la variable
+            match(Tipos.Identificador);
             match(")");
             match(";");
         }
