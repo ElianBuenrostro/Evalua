@@ -197,10 +197,14 @@ namespace Evalua
         private void Asignacion()
         {
             //Requerimiento 2.- Si no existe la variable levanta la excepcion
+            string nombre = getContenido();
+            if(!existeVariable(getContenido()))
+            {   
+	            throw new Error("Error de sintaxis, variable <" +getContenido()+"> no existe en linea: "+linea, log);
+            }
+            match(Tipos.Identificador);
             log.WriteLine();
             log.Write(getContenido()+" = ");
-            string nombre = getContenido();
-            match(Tipos.Identificador);
             match(Tipos.Asignacion);
             Expresion();
             match(";");
@@ -270,16 +274,20 @@ namespace Evalua
         {
             string variable = getContenido();
             //Requerimiento 2.- Si no existe la variable levanta la excepcion
+            if(!existeVariable(getContenido()))
+            {   
+	            throw new Error("Error de sintaxis, variable <" +getContenido()+"> no existe en linea: "+linea, log);
+            }
             match(Tipos.Identificador);
-            if(getContenido() == "+")
+            if(getContenido() == "++")
             {
-                match("++");
                 modVariable(variable,getValor(variable)+1);
+                match("++");
             }
             else
             {
-                match("--");
                 modVariable(variable,getValor(variable)-1);
+                match("--");
             }
         }
 
@@ -403,8 +411,11 @@ namespace Evalua
             match(Tipos.Cadena);
             match(",");
             match("&");
-            
-           
+
+            if(!existeVariable(getContenido()))
+            {   
+	            throw new Error("Error de sintaxis, variable <" +getContenido()+"> no existe en linea: "+linea, log);
+            }
             //Requerimiento 2.- Si no existe la variable levanta la excepcion
             string val = "" + Console.ReadLine();
             //Requerimiento 5.- Modificar el valor de la variable
@@ -491,8 +502,11 @@ namespace Evalua
             else if (getClasificacion() == Tipos.Identificador)
             {
                 //Requerimiento 2.- Si no existe la variable levanta la excepcion
-                log.Write(getContenido() + " " );
                 stack.Push(getValor(getContenido()));
+                if(!existeVariable(getContenido()))
+                {   
+	                throw new Error("Error de sintaxis, variable <" +getContenido()+"> no existe en linea: "+linea, log);
+                }
                 match(Tipos.Identificador);
             }
             else
