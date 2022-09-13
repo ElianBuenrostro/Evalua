@@ -1,3 +1,10 @@
 Archivo: prueba.cpp
-12/09/2022 09:24:40 p. m.
-Error de sintaxis, se espera un Cadena en linea: 8
+12/09/2022 11:10:11 p. m.
+
+= = 3.141592653589793 = 3.1415927
+
+= = 4 = 4
+
+= = * * = 0
+
+++ = Error de sintaxis, se espera un Asignacion en linea: 14

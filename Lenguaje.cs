@@ -51,11 +51,24 @@ namespace Evalua
         //Nuevo metodo
         private void modVariable(string nombre, float nuevoValor)
         {
-            
+            foreach (var vari in variables)
+	        { 
+                if (vari.getNombre() == nombre) 
+		        {    
+                    vari.setValor(nuevoValor);
+	        	}
+	        }
         }
-        private float getValor(string nombreVariable)
+        private float getValor(string nombre)
         {
-            return 0;
+	        foreach (var v in variables)
+	        { 
+                if (v.getNombre() == nombre) 
+		        { 
+                    return v.getValor();
+		        }
+	        }
+	    return 0;
         }
         //Programa  -> Librerias? Variables? Main
         public void Programa()
@@ -281,13 +294,15 @@ namespace Evalua
             match(Tipos.Identificador);
             if(getContenido() == "++")
             {
-                modVariable(variable,getValor(variable)+1);
                 match("++");
+                modVariable(variable,getValor(variable)+1);
+                
             }
             else
             {
-                modVariable(variable,getValor(variable)-1);
                 match("--");
+                modVariable(variable,getValor(variable)-1);
+                
             }
         }
 
@@ -378,16 +393,15 @@ namespace Evalua
         //Printf -> printf(cadena o expresion);
         private void Printf()
         {
-            match("printf");
-            match("(");
-            if(getClasificacion() == Tipos.Cadena)
+           match("printf");
+            match("("); 
+            if(getClasificacion() == Tipos.Cadena) 
             {
-                //cambiamos las comillas por los datos correctos
-                setContenido(getContenido().Replace("\\t", "     "));
-                setContenido(getContenido().Replace("\\n", "\n"));
-                setContenido(getContenido().Replace("\"", string.Empty));
-                //escribe contenido
 
+		        setContenido(getContenido().TrimStart('\"'));
+		        setContenido(getContenido().TrimEnd('\"'));
+		        setContenido(getContenido().Replace("\\n", "\n"));
+		        setContenido(getContenido().Replace("\\t", "    "));
                 Console.Write(getContenido());
                 match(Tipos.Cadena);
             }
@@ -395,10 +409,7 @@ namespace Evalua
             {
                 Expresion();
                 Console.Write(stack.Pop());
-
             }
-            Console.Write(getContenido());
-            match(Tipos.Cadena);
             match(")");
             match(";");
         }
@@ -418,6 +429,7 @@ namespace Evalua
             }
             //Requerimiento 2.- Si no existe la variable levanta la excepcion
             string val = "" + Console.ReadLine();
+            
             //Requerimiento 5.- Modificar el valor de la variable
             match(Tipos.Identificador);
             match(")");
